@@ -1,0 +1,22 @@
+# This file made for convenience only; never used
+namespace:
+  queued:      Array(Int32) # Queued broadcasts IDs
+  in_progress: Array(Int32)
+  failed:      Array(Int32)
+  completed:   Array(Int32)
+  cancelled:   Array(Int32)
+
+  blocked_recipients: Array(Int32) # Telegram users which have blocked the bot
+  deleted_accounts:   Array(Int32) # Telegram users which have deleted their account
+
+  last_payload_id: Int32 # Autoincrementing number
+
+  payloads:
+    "1": # Payload ID
+      broadcast_at:   String # When to start broadcasting; in format "%F %T %z"
+      recipient_ids:  Array(Int32)
+      delivered_to:   Array(Int32)
+      requests_count: Int32 # Number of Requests in the broadcast
+      requests:
+        "1": Hash(String, String) # Request
+        "2": Hash(String, String) # Another Request

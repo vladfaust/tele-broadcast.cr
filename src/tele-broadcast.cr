@@ -1,0 +1,2 @@
+module Tele::Broadcast
+end

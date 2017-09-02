@@ -1,0 +1,17 @@
+name: tele-broadcast
+version: 0.1.0
+
+authors:
+  - Vlad Faust <mail@vladfaust.com>
+
+crystal: 0.23.1
+
+license: MIT
+
+dependencies:
+  tele:
+    github: vladfaust/tele.cr
+    version: ~> 0.1.1
+  redis:
+    github: stefanwille/crystal-redis
+    version: ~> 1.8.0
