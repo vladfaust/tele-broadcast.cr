@@ -65,6 +65,7 @@ module Tele::Broadcast
                   logger.debug("Delivered request #" + random_request_id + " in " + format_time(Time.now - request_started_at))
                 end
 
+                logger.info("Successfully delivered to #{chat_id}")
                 repo.add_recipient_to_delivered_list(payload_id, chat_id)
               rescue ex : Tele::Client::LimitExceededError
                 logger.warn("Limit exceeded! Will wait for #{ex.delay} seconds")
