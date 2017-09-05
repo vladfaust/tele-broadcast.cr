@@ -1,4 +1,5 @@
 # This file made for convenience only; never used
+# Example Redis key: `tele:broadcasting:payloads:1:broadcast_at`
 namespace:
   queued:      Array(Int32) # Queued broadcasts IDs
   in_progress: Array(Int32)

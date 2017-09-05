@@ -13,7 +13,9 @@ raise ArgumentError.new("Must specify token") if token.empty?
 require "../src/tele-broadcast/repositories/redis"
 
 logger = Logger.new(STDOUT).tap(&.level = Logger::DEBUG)
-repo = Tele::Broadcast::Repositories::Redis.new(Redis.new, logger, "tele:example_broadcasting:") # Don't forget to add a colon in the end of namespace
+
+# Don't forget to add a colon in the end of namespace
+repo = Tele::Broadcast::Repositories::Redis.new(Redis.new, logger, "tele:example_broadcasting:")
 
 require "../src/tele-broadcast/worker"
 

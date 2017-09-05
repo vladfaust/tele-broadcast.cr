@@ -2,6 +2,7 @@ require "logger"
 require "./payload"
 
 module Tele::Broadcast
+  # Abstract Repository; a broadcaster can store data anywhere
   abstract class Repository
     abstract def get_queued : Array(Int32)
     abstract def get_in_progress : Array(Int32)

@@ -9,13 +9,16 @@ module Tele::Broadcast
     # How much to sleep in seconds when Telegram returns 5** error
     SERVER_ERROR_SLEEP = 10
 
-    # New broadcasts checking frequency in seconds
+    # A frequency of checking for queued broadcasts, in seconds
     CHECK_PERIOD = 0.5
 
-    MAX_REQUESTS_PER_SECOND = 40
-
     # Which payload ID is being broadcasted at the moment
-    getter payload_id_in_progress = 0
+    private getter payload_id_in_progress = 0
+
+    # Is the worker broadcasting now?
+    def broadcasting?
+      payload_id_in_progress > 0
+    end
 
     def initialize(bot_api_token token : String,
                    repository @repo : Repository,
@@ -26,6 +29,9 @@ module Tele::Broadcast
       [Signal::INT, Signal::TERM, Signal::KILL].each &.trap { exit }
     end
 
+    # Start working
+    #
+    # This is a looped process, it will last forever until stopped
     def run
       logger.info("The worker is running!")
 
