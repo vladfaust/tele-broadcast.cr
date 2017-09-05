@@ -14,20 +14,41 @@ module Tele::Broadcast
 
     MAX_REQUESTS_PER_SECOND = 40
 
+    # Which payload ID is being broadcasted at the moment
+    getter payload_id_in_progress = 0
+
     def initialize(bot_api_token token : String,
                    repository @repo : Repository,
                    @logger : Logger)
       @tele_client = Tele::Client.new(token, @logger)
+
+      # Catch exit signals to fire at_exit handlers
+      [Signal::INT, Signal::TERM, Signal::KILL].each &.trap { exit }
     end
 
     def run
-      logger.info("Tele::Broadcast::Worker worker is running!")
+      logger.info("The worker is running!")
+
+      at_exit do
+        puts "\n"
+
+        if payload_id_in_progress > 0
+          repo.remove_from_in_progress(payload_id_in_progress)
+          repo.add_to_queued(payload_id_in_progress)
+          logger.info("Moved payload ##{payload_id_in_progress} to queued list due to interruption")
+        end
+
+        logger.info("The worker has been stopped. Goodbye!")
+      end
+
       loop do
         repo.get_queued.each do |payload_id|
           next unless repo.broadcasting_time?(payload_id)
 
           repo.remove_from_queued(payload_id)
           repo.add_to_in_progress(payload_id)
+          payload_id_in_progress = payload_id
+
           payload = repo.load_payload(payload_id)
 
           logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + (payload.recipients.size - repo.get_delivered_list(payload_id).size).to_s + " recipients...")
@@ -84,6 +105,7 @@ module Tele::Broadcast
               end
             end
 
+            payload_id_in_progress = 0
             repo.remove_from_in_progress(payload_id)
             repo.add_to_completed(payload_id)
 
@@ -95,6 +117,7 @@ module Tele::Broadcast
             #
           rescue ex
             logger.error("Unhandled error #{ex.class} for payload ##{payload_id}! Message: #{ex.message}")
+            payload_id_in_progress = 0
             repo.remove_from_in_progress(payload_id)
             repo.add_to_failed(payload_id)
           end
