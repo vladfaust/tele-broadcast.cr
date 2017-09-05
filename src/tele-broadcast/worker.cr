@@ -9,28 +9,55 @@ module Tele::Broadcast
     # How much to sleep in seconds when Telegram returns 5** error
     SERVER_ERROR_SLEEP = 10
 
-    # New broadcasts checking frequency in seconds
+    # A frequency of checking for queued broadcasts, in seconds
     CHECK_PERIOD = 0.5
 
-    MAX_REQUESTS_PER_SECOND = 40
+    # Which payload ID is being broadcasted at the moment
+    private getter payload_id_in_progress = 0
+
+    # Is the worker broadcasting now?
+    def broadcasting?
+      payload_id_in_progress > 0
+    end
 
     def initialize(bot_api_token token : String,
                    repository @repo : Repository,
                    @logger : Logger)
       @tele_client = Tele::Client.new(token, @logger)
+
+      # Catch exit signals to fire at_exit handlers
+      [Signal::INT, Signal::TERM, Signal::KILL].each &.trap { exit }
     end
 
+    # Start working
+    #
+    # This is a looped process, it will last forever until stopped
     def run
-      logger.info("Tele::Broadcast::Worker worker is running!")
+      logger.info("The worker is running!")
+
+      at_exit do
+        puts "\n"
+
+        if payload_id_in_progress > 0
+          repo.remove_from_in_progress(payload_id_in_progress)
+          repo.add_to_queued(payload_id_in_progress)
+          logger.info("Moved payload ##{payload_id_in_progress} to queued list due to interruption")
+        end
+
+        logger.info("The worker has been stopped. Goodbye!")
+      end
+
       loop do
         repo.get_queued.each do |payload_id|
           next unless repo.broadcasting_time?(payload_id)
 
           repo.remove_from_queued(payload_id)
           repo.add_to_in_progress(payload_id)
+          payload_id_in_progress = payload_id
+
           payload = repo.load_payload(payload_id)
 
-          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + payload.recipients.size.to_s + " recipients...")
+          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + (payload.recipients.size - repo.get_delivered_list(payload_id).size).to_s + " recipients...")
           broadcasting_started_at = Time.now
 
           begin
@@ -65,6 +92,7 @@ module Tele::Broadcast
                   logger.debug("Delivered request #" + random_request_id + " in " + format_time(Time.now - request_started_at))
                 end
 
+                logger.info("Successfully delivered to #{chat_id}")
                 repo.add_recipient_to_delivered_list(payload_id, chat_id)
               rescue ex : Tele::Client::LimitExceededError
                 logger.warn("Limit exceeded! Will wait for #{ex.delay} seconds")
@@ -72,22 +100,30 @@ module Tele::Broadcast
               rescue ex : Tele::Client::BlockedByUserError
                 logger.warn("User has blocked the bot! Adding #{chat_id} to blocked list")
                 repo.add_recipient_to_blocked_list(chat_id)
+                repo.incr_blocked_count(payload_id)
               rescue ex : Tele::Client::ChatNotFoundError
                 logger.warn("Chat #{chat_id} not found, adding to deleted account lists")
                 repo.add_account_to_deleted_list(chat_id)
+                repo.incr_deleted_count(payload_id)
               rescue ex : Tele::Client::ServerError
                 logger.warn("Telegram server error (#{ex.message})! Sleeping for #{SERVER_ERROR_SLEEP}")
                 sleep SERVER_ERROR_SLEEP
               end
             end
 
+            payload_id_in_progress = 0
             repo.remove_from_in_progress(payload_id)
             repo.add_to_completed(payload_id)
 
-            logger.info("Done broadcasting payload #" + payload_id.to_s + " in " + format_time(Time.now - broadcasting_started_at) + "!")
+            delivered_count = repo.get_delivered_list(payload_id).size
+            blocked_count = repo.get_blocked_count(payload_id)
+            deleted_count = repo.get_deleted_count(payload_id)
+
+            logger.info("Done broadcasting payload ##{payload_id} to #{delivered_count} recipients (#{blocked_count} newly blocked, #{deleted_count} deleted) in #{format_time(Time.now - broadcasting_started_at)}!")
             #
           rescue ex
             logger.error("Unhandled error #{ex.class} for payload ##{payload_id}! Message: #{ex.message}")
+            payload_id_in_progress = 0
             repo.remove_from_in_progress(payload_id)
             repo.add_to_failed(payload_id)
           end

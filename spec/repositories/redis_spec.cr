@@ -111,6 +111,11 @@ describe Tele::Broadcast::Repositories::Redis do
       repo.recipient_blocked?(42).should be_true
       repo.get_blocked_list.should contain(42)
     end
+
+    describe "for a single payload" do
+      repo.incr_blocked_count(1).should eq 1
+      repo.get_blocked_count(1).should eq 1
+    end
   end
 
   describe "managing deleted accounts" do
@@ -119,6 +124,11 @@ describe Tele::Broadcast::Repositories::Redis do
       repo.add_account_to_deleted_list(42).should be_truthy
       repo.account_deleted?(42).should be_true
       repo.get_deleted_accounts_list.should contain(42)
+    end
+
+    describe "for a single payload" do
+      repo.incr_deleted_count(1).should eq 1
+      repo.get_deleted_count(1).should eq 1
     end
   end
 end

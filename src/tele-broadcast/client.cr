@@ -7,6 +7,8 @@ module Tele::Broadcast
 
     # Queues a broadcasting of *requests* to *recipients*, scheduling it at *when*.
     #
+    # Note that *chat_id* value in *requests* is ignored by the broadcaster.
+    #
     # ```
     # requests = [Tele::Requests::SendMessage.new(chat_id: 0, text: "Hello")]
     # client.broadcast(requests, recipients: [42, 43], when: Time.now + 3.hours)
@@ -19,6 +21,14 @@ module Tele::Broadcast
       payload.id
     end
 
+    # Queues a broadcasting of *request* to *recipients*, scheduling it at *when*.
+    #
+    # Note that *chat_id* value in *request* is ignored by the broadcaster.
+    #
+    # ```
+    # request = Tele::Requests::SendMessage.new(chat_id: 0, text: "Hello")
+    # client.broadcast(request, recipients: [42, 43])
+    # ```
     def broadcast(request : Tele::Request, recipients, when broadcast_at = Time.now)
       broadcast([request], recipients, broadcast_at)
     end

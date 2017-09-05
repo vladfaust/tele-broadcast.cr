@@ -15,13 +15,16 @@ end
 raise ArgumentError.new("Must specify recipients!") unless recipients.any?
 raise ArgumentError.new("Must specify text") if text.empty?
 
+# Please require multiple Tele requests, so the compiler thinks of each as of Tele::Request+
 require "tele/requests/send_message"
 require "tele/requests/send_photo"
 require "../src/tele-broadcast/repositories/redis"
 require "../src/tele-broadcast/client"
 
 logger = Logger.new(STDOUT).tap(&.level = Logger::DEBUG)
-repo = Tele::Broadcast::Repositories::Redis.new(Redis.new, logger, "tele:example_broadcasting:") # Don't forget to add a colon in the end of namespace
+
+# Don't forget to add a colon in the end of namespace
+repo = Tele::Broadcast::Repositories::Redis.new(Redis.new, logger, "tele:example_broadcasting:")
 
 client = Tele::Broadcast::Client.new(repo, logger)
 

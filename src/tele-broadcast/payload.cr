@@ -1,6 +1,8 @@
 module Tele::Broadcast
+  # :nodoc:
   alias RequestHash = Hash(String, String | File)
 
+  # :nodoc:
   struct Payload
     getter id : Int32
     getter requests : Array(RequestHash)
