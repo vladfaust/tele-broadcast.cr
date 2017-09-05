@@ -30,7 +30,7 @@ module Tele::Broadcast
           repo.add_to_in_progress(payload_id)
           payload = repo.load_payload(payload_id)
 
-          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + payload.recipients.size.to_s + " recipients...")
+          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + (payload.recipients.size - repo.get_delivered_list(payload_id).size).to_s + " recipients...")
           broadcasting_started_at = Time.now
 
           begin
@@ -73,9 +73,11 @@ module Tele::Broadcast
               rescue ex : Tele::Client::BlockedByUserError
                 logger.warn("User has blocked the bot! Adding #{chat_id} to blocked list")
                 repo.add_recipient_to_blocked_list(chat_id)
+                repo.incr_blocked_count(payload_id)
               rescue ex : Tele::Client::ChatNotFoundError
                 logger.warn("Chat #{chat_id} not found, adding to deleted account lists")
                 repo.add_account_to_deleted_list(chat_id)
+                repo.incr_deleted_count(payload_id)
               rescue ex : Tele::Client::ServerError
                 logger.warn("Telegram server error (#{ex.message})! Sleeping for #{SERVER_ERROR_SLEEP}")
                 sleep SERVER_ERROR_SLEEP
@@ -85,7 +87,11 @@ module Tele::Broadcast
             repo.remove_from_in_progress(payload_id)
             repo.add_to_completed(payload_id)
 
-            logger.info("Done broadcasting payload #" + payload_id.to_s + " in " + format_time(Time.now - broadcasting_started_at) + "!")
+            delivered_count = repo.get_delivered_list(payload_id).size
+            blocked_count = repo.get_blocked_count(payload_id)
+            deleted_count = repo.get_deleted_count(payload_id)
+
+            logger.info("Done broadcasting payload ##{payload_id} to #{delivered_count} recipients (#{blocked_count} newly blocked, #{deleted_count} deleted) in #{format_time(Time.now - broadcasting_started_at)}!")
             #
           rescue ex
             logger.error("Unhandled error #{ex.class} for payload ##{payload_id}! Message: #{ex.message}")

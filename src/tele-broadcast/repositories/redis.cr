@@ -19,6 +19,8 @@ module Tele::Broadcast
     private KEY_DELIVERED_TO       = "delivered_to"
     private KEY_REQUESTS_COUNT     = "requests_count"
     private KEY_REQUESTS           = "requests"
+    private KEY_DELETED_COUNT      = "deleted_count"
+    private KEY_BLOCKED_COUNT      = "blocked_count"
 
     def initialize(@redis, @logger, @namespace = DEFAULT_NAMESPACE); end
 
@@ -111,6 +113,18 @@ module Tele::Broadcast
       redis.smembers(blocked_list_key).map &.to_s.to_i
     end
 
+    private def blocked_count_key(payload_id : Int32)
+      namespace + KEY_PAYLOADS + ":" + payload_id.to_s + ":" + KEY_BLOCKED_COUNT
+    end
+
+    def incr_blocked_count(payload_id : Int32)
+      redis.incr(blocked_count_key(payload_id)).to_i32
+    end
+
+    def get_blocked_count(payload_id : Int32)
+      redis.get(blocked_count_key(payload_id)).try(&.to_i) || 0
+    end
+
     private def deleted_list_key
       namespace + KEY_DELETED_ACCOUNTS
     end
@@ -125,6 +139,18 @@ module Tele::Broadcast
 
     def get_deleted_accounts_list
       redis.smembers(deleted_list_key).map &.to_s.to_i
+    end
+
+    private def deleted_count_key(payload_id : Int32)
+      namespace + KEY_PAYLOADS + ":" + payload_id.to_s + ":" + KEY_DELETED_COUNT
+    end
+
+    def incr_deleted_count(payload_id : Int32)
+      redis.incr(deleted_count_key(payload_id)).to_i32
+    end
+
+    def get_deleted_count(payload_id : Int32)
+      redis.get(deleted_count_key(payload_id)).try(&.to_i) || 0
     end
 
     private def hash_from_redis_array(array : Array(::Redis::RedisValue)) : Hash(String, String)

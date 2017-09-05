@@ -37,9 +37,11 @@ module Tele::Broadcast
     abstract def add_recipient_to_blocked_list(chat_id : Int32)
     abstract def recipient_blocked?(chat_id : Int32) : Bool
     abstract def get_blocked_list : Array(Int32)
+    abstract def incr_blocked_count(payload_id : Int32)
 
     abstract def add_account_to_deleted_list(chat_id : Int32)
     abstract def account_deleted?(chat_id : Int32) : Bool
     abstract def get_deleted_accounts_list : Array(Int32)
+    abstract def incr_deleted_count(payload_id : Int32)
   end
 end
