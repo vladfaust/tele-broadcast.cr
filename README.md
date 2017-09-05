@@ -37,10 +37,10 @@ client.broadcast(requests, recipients)
 # => INFO -- : Added payload #1 to the broadcasting queue
 ```
 
-Check out `examples/simple_client.cr` and try it yourself:
+Check out `examples/client.cr` and try it yourself:
 
 ```shell
-crystal /examples/simple_client.cr -- --text="Hola!" -r <Your Telegram ID>
+crystal /examples/client.cr -- --text="Hola!" -r <Your Telegram ID>
 ```
 
 Please not that you have to contact the bot at least once so it can send you messages.
@@ -70,7 +70,7 @@ worker.run
 Try it yourself:
 
 ```shell
-crystal /examples/simple_worker.cr -- -t <BOT_API_TOKEN>
+crystal /examples/worker.cr -- -t <BOT_API_TOKEN>
 ```
 
 ### Usage flow
