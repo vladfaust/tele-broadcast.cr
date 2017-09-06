@@ -101,6 +101,7 @@ describe Tele::Broadcast::Repositories::Redis do
       repo.add_recipient_to_delivered_list(1, 42).should be_truthy
       repo.already_delivered?(1, 42).should be_true
       repo.get_delivered_list(1).should contain(42)
+      repo.get_delivered_list_size(1).should eq 1
     end
   end
 

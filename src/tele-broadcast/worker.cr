@@ -57,7 +57,7 @@ module Tele::Broadcast
 
           payload = repo.load_payload(payload_id)
 
-          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + (payload.recipients.size - repo.get_delivered_list(payload_id).size).to_s + " recipients...")
+          logger.info("Started broadcasting payload #" + payload_id.to_s + " to " + (payload.recipients.size - repo.get_delivered_list_size(payload_id)).to_s + " recipients...")
           broadcasting_started_at = Time.now
 
           begin
@@ -115,7 +115,7 @@ module Tele::Broadcast
             repo.remove_from_in_progress(payload_id)
             repo.add_to_completed(payload_id)
 
-            delivered_count = repo.get_delivered_list(payload_id).size
+            delivered_count = repo.get_delivered_list_size(payload_id)
             blocked_count = repo.get_blocked_count(payload_id)
             deleted_count = repo.get_deleted_count(payload_id)
 

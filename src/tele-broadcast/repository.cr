@@ -34,6 +34,7 @@ module Tele::Broadcast
     abstract def add_recipient_to_delivered_list(payload_id : Int32, chat_id : Int32)
     abstract def already_delivered?(payload_id : Int32, chat_id : Int32) : Bool
     abstract def get_delivered_list(payload_id : Int32) : Array(Int32)
+    abstract def get_delivered_list_size(payload_id : Int32) : Int32
 
     abstract def add_recipient_to_blocked_list(chat_id : Int32)
     abstract def recipient_blocked?(chat_id : Int32) : Bool

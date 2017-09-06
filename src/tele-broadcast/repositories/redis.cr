@@ -90,11 +90,15 @@ module Tele::Broadcast
     end
 
     def already_delivered?(payload_id : Int32, chat_id : Int32)
-      get_delivered_list(payload_id).includes?(chat_id)
+      redis.sismember(delivered_list_key(payload_id), chat_id) == 1
     end
 
     def get_delivered_list(payload_id : Int32)
       redis.smembers(delivered_list_key(payload_id)).map &.to_s.to_i
+    end
+
+    def get_delivered_list_size(payload_id : Int32)
+      redis.scard(delivered_list_key(payload_id)).to_i
     end
 
     private def blocked_list_key
@@ -106,7 +110,7 @@ module Tele::Broadcast
     end
 
     def recipient_blocked?(chat_id : Int32)
-      get_blocked_list.includes?(chat_id)
+      redis.sismember(blocked_list_key, chat_id) == 1
     end
 
     def get_blocked_list : Array(Int32)
@@ -134,7 +138,7 @@ module Tele::Broadcast
     end
 
     def account_deleted?(chat_id : Int32)
-      get_deleted_accounts_list.includes?(chat_id)
+      redis.sismember(deleted_list_key, chat_id) == 1
     end
 
     def get_deleted_accounts_list
