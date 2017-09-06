@@ -10,7 +10,7 @@ Add this to your application's `shard.yml`:
 dependencies:
   tele-broadcast:
     github: vladfaust/tele-broadcast.cr
-    version: 0.1.1
+    version: 0.1.2
 ```
 
 ## Usage
