@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/vladfaust/tele-broadcast.cr">
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/doc.js"></script>
+  <title>Tele::Broadcast::Repository - github.com/vladfaust/tele-broadcast.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele" data-name="tele">
+      <a href="../../Tele.html">Tele</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast" data-name="tele::broadcast">
+      <a href="../../Tele/Broadcast.html">Broadcast</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Client" data-name="tele::broadcast::client">
+      <a href="../../Tele/Broadcast/Client.html">Client</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories" data-name="tele::broadcast::repositories">
+      <a href="../../Tele/Broadcast/Repositories.html">Repositories</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories/Redis" data-name="tele::broadcast::repositories::redis">
+      <a href="../../Tele/Broadcast/Repositories/Redis.html">Redis</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repository" data-name="tele::broadcast::repository">
+      <a href="../../Tele/Broadcast/Repository.html">Repository</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Worker" data-name="tele::broadcast::worker">
+      <a href="../../Tele/Broadcast/Worker.html">Worker</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">abstract class</span> Tele::Broadcast::Repository
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Tele/Broadcast/Repository.html">Tele::Broadcast::Repository</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+  <h2>Overview</h2>
+
+  <p>Abstract Repository; a broadcaster can store data anywhere</p>
+
+
+
+
+
+
+
+
+
+  <h2>Direct Known Subclasses</h2>
+  <ul class="other-types-list">
+  
+    <li class="other-type"><a href="../../Tele/Broadcast/Repositories/Redis.html">Tele::Broadcast::Repositories::Redis</a></li>
+  
+  </ul>
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L6" target="_blank">tele-broadcast/repository.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#account_deleted%3F%28chat_id%3AInt32%29%3ABool-instance-method" class="signature"><strong>#account_deleted?</strong>(chat_id : Int32) : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_account_to_deleted_list%28chat_id%3AInt32%29-instance-method" class="signature"><strong>#add_account_to_deleted_list</strong>(chat_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_recipient_to_blocked_list%28chat_id%3AInt32%29-instance-method" class="signature"><strong>#add_recipient_to_blocked_list</strong>(chat_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_recipient_to_delivered_list%28payload_id%3AInt32%2Cchat_id%3AInt32%29-instance-method" class="signature"><strong>#add_recipient_to_delivered_list</strong>(payload_id : Int32, chat_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_to_cancelled%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#add_to_cancelled</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_to_completed%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#add_to_completed</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_to_failed%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#add_to_failed</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_to_in_progress%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#add_to_in_progress</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_to_queued%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#add_to_queued</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#already_delivered%3F%28payload_id%3AInt32%2Cchat_id%3AInt32%29%3ABool-instance-method" class="signature"><strong>#already_delivered?</strong>(payload_id : Int32, chat_id : Int32) : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#broadcasting_time%3F%28payload_id%3AInt32%29%3ABool-instance-method" class="signature"><strong>#broadcasting_time?</strong>(payload_id : Int32) : Bool</a>
+        
+          <div class="summary"><p>Has a Payload broadcasting time come?</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_blocked_list%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_blocked_list</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_cancelled%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_cancelled</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_completed%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_completed</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_deleted_accounts_list%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_deleted_accounts_list</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_delivered_list%28payload_id%3AInt32%29%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_delivered_list</strong>(payload_id : Int32) : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_delivered_list_size%28payload_id%3AInt32%29%3AInt32-instance-method" class="signature"><strong>#get_delivered_list_size</strong>(payload_id : Int32) : Int32</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_failed%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_failed</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_in_progress%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_in_progress</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#get_queued%3AArray%28Int32%29-instance-method" class="signature"><strong>#get_queued</strong> : Array(Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#incr_blocked_count%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#incr_blocked_count</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#incr_deleted_count%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#incr_deleted_count</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#incr_last_payload_id%3AInt32-instance-method" class="signature"><strong>#incr_last_payload_id</strong> : Int32</a>
+        
+          <div class="summary"><p>Return the last Payload ID <strong>after increment</strong> (so minimum possible value is <em>1</em>)</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#load_payload%28id%3AInt32%29%3APayload-instance-method" class="signature"><strong>#load_payload</strong>(id : Int32) : Payload</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#recipient_blocked%3F%28chat_id%3AInt32%29%3ABool-instance-method" class="signature"><strong>#recipient_blocked?</strong>(chat_id : Int32) : Bool</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_from_cancelled%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#remove_from_cancelled</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_from_completed%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#remove_from_completed</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_from_failed%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#remove_from_failed</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_from_in_progress%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#remove_from_in_progress</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove_from_queued%28payload_id%3AInt32%29-instance-method" class="signature"><strong>#remove_from_queued</strong>(payload_id : Int32)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#save_payload%28payload%3APayload%29-instance-method" class="signature"><strong>#save_payload</strong>(payload : Payload)</a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#update_payload_request%28payload_id%3AInt32%2Crequest_id%3AInt32%2Crequest%3ARequestHash%29-instance-method" class="signature"><strong>#update_payload_request</strong>(payload_id : Int32, request_id : Int32, request : RequestHash)</a>
+        
+          <div class="summary"><p>Update a Payload request.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="account_deleted?&#40;chat_id:Int32&#41;:Bool-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>account_deleted?</strong>(chat_id : Int32) : Bool
+
+        <a class="method-permalink" href="#account_deleted%3F%28chat_id%3AInt32%29%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L45" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_account_to_deleted_list&#40;chat_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_account_to_deleted_list</strong>(chat_id : Int32)
+
+        <a class="method-permalink" href="#add_account_to_deleted_list%28chat_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L44" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_recipient_to_blocked_list&#40;chat_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_recipient_to_blocked_list</strong>(chat_id : Int32)
+
+        <a class="method-permalink" href="#add_recipient_to_blocked_list%28chat_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L39" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_recipient_to_delivered_list&#40;payload_id:Int32,chat_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_recipient_to_delivered_list</strong>(payload_id : Int32, chat_id : Int32)
+
+        <a class="method-permalink" href="#add_recipient_to_delivered_list%28payload_id%3AInt32%2Cchat_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_to_cancelled&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_to_cancelled</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#add_to_cancelled%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L17" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_to_completed&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_to_completed</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#add_to_completed%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_to_failed&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_to_failed</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#add_to_failed%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L15" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_to_in_progress&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_to_in_progress</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#add_to_in_progress%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L14" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_to_queued&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>add_to_queued</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#add_to_queued%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L13" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="already_delivered?&#40;payload_id:Int32,chat_id:Int32&#41;:Bool-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>already_delivered?</strong>(payload_id : Int32, chat_id : Int32) : Bool
+
+        <a class="method-permalink" href="#already_delivered%3F%28payload_id%3AInt32%2Cchat_id%3AInt32%29%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L35" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="broadcasting_time?&#40;payload_id:Int32&#41;:Bool-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>broadcasting_time?</strong>(payload_id : Int32) : Bool
+
+        <a class="method-permalink" href="#broadcasting_time%3F%28payload_id%3AInt32%29%3ABool-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Has a Payload broadcasting time come?</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L30" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_blocked_list:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_blocked_list</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_blocked_list%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L41" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_cancelled:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_cancelled</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_cancelled%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L11" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_completed:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_completed</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_completed%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L10" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_deleted_accounts_list:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_deleted_accounts_list</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_deleted_accounts_list%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L46" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_delivered_list&#40;payload_id:Int32&#41;:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_delivered_list</strong>(payload_id : Int32) : Array(Int32)
+
+        <a class="method-permalink" href="#get_delivered_list%28payload_id%3AInt32%29%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L36" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_delivered_list_size&#40;payload_id:Int32&#41;:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_delivered_list_size</strong>(payload_id : Int32) : Int32
+
+        <a class="method-permalink" href="#get_delivered_list_size%28payload_id%3AInt32%29%3AInt32-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L37" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_failed:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_failed</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_failed%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L9" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_in_progress:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_in_progress</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_in_progress%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L8" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="get_queued:Array&#40;Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>get_queued</strong> : Array(Int32)
+
+        <a class="method-permalink" href="#get_queued%3AArray%28Int32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L7" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="incr_blocked_count&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>incr_blocked_count</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#incr_blocked_count%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L42" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="incr_deleted_count&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>incr_deleted_count</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#incr_deleted_count%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L47" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="incr_last_payload_id:Int32-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>incr_last_payload_id</strong> : Int32
+
+        <a class="method-permalink" href="#incr_last_payload_id%3AInt32-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Return the last Payload ID <strong>after increment</strong> (so minimum possible value is <em>1</em>)</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L26" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="load_payload&#40;id:Int32&#41;:Payload-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>load_payload</strong>(id : Int32) : Payload
+
+        <a class="method-permalink" href="#load_payload%28id%3AInt32%29%3APayload-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L28" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="recipient_blocked?&#40;chat_id:Int32&#41;:Bool-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>recipient_blocked?</strong>(chat_id : Int32) : Bool
+
+        <a class="method-permalink" href="#recipient_blocked%3F%28chat_id%3AInt32%29%3ABool-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L40" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove_from_cancelled&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>remove_from_cancelled</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#remove_from_cancelled%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L23" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove_from_completed&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>remove_from_completed</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#remove_from_completed%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L22" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove_from_failed&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>remove_from_failed</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#remove_from_failed%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L21" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove_from_in_progress&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>remove_from_in_progress</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#remove_from_in_progress%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L20" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove_from_queued&#40;payload_id:Int32&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>remove_from_queued</strong>(payload_id : Int32)
+
+        <a class="method-permalink" href="#remove_from_queued%28payload_id%3AInt32%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L19" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="save_payload&#40;payload:Payload&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>save_payload</strong>(payload : Payload)
+
+        <a class="method-permalink" href="#save_payload%28payload%3APayload%29-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L27" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="update_payload_request&#40;payload_id:Int32,request_id:Int32,request:RequestHash&#41;-instance-method">
+      <div class="signature">
+        abstract 
+        def <strong>update_payload_request</strong>(payload_id : Int32, request_id : Int32, request : RequestHash)
+
+        <a class="method-permalink" href="#update_payload_request%28payload_id%3AInt32%2Crequest_id%3AInt32%2Crequest%3ARequestHash%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Update a Payload request. Use to re-assign file fields (photo, video etc.) with their file_id</p></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/repository.cr#L32" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>

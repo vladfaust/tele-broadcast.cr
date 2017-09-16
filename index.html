@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/vladfaust/tele-broadcast.cr">
+  <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="js/doc.js"></script>
+  <title>README - github.com/vladfaust/tele-broadcast.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li class="current"><a href="index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent " data-id="github.com/vladfaust/tele-broadcast.cr/Tele" data-name="tele">
+      <a href="Tele.html">Tele</a>
+      
+        <ul>
+  
+  <li class="parent " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast" data-name="tele::broadcast">
+      <a href="Tele/Broadcast.html">Broadcast</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Client" data-name="tele::broadcast::client">
+      <a href="Tele/Broadcast/Client.html">Client</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories" data-name="tele::broadcast::repositories">
+      <a href="Tele/Broadcast/Repositories.html">Repositories</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories/Redis" data-name="tele::broadcast::repositories::redis">
+      <a href="Tele/Broadcast/Repositories/Redis.html">Redis</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repository" data-name="tele::broadcast::repository">
+      <a href="Tele/Broadcast/Repository.html">Repository</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Worker" data-name="tele::broadcast::worker">
+      <a href="Tele/Broadcast/Worker.html">Worker</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1>Tele::Broadcast <a href="https://travis-ci.org/vladfaust/tele-broadcast.cr" target="_blank"><img src="https://travis-ci.org/vladfaust/tele-broadcast.cr.svg?branch=master" alt="Build Status"/></a> <a href="https://vladfaust.com/tele-broadcast.cr" target="_blank"><img src="https://img.shields.io/badge/docs-available-brightgreen.svg" alt="Docs"/></a> <a href="https://github.com/vladfaust/tele-broadcast.cr/releases" target="_blank"><img src="https://img.shields.io/github/release/vladfaust/tele-broadcast.cr.svg" alt="GitHub release"/></a></h1>
+
+<p>A broadcasting module for <a href="https://github.com/vladfaust/tele.cr" target="_blank">Tele.cr</a>.</p>
+
+<h2>Installation</h2>
+
+<p>Add this to your application's <code>shard.yml</code>:</p>
+
+<pre><code class='language-yaml'>dependencies:
+  tele-broadcast:
+    github: vladfaust/tele-broadcast.cr
+    version: ~> 0.1.3</code></pre>
+
+<h2>Usage</h2>
+
+<p>Read some <a href="https://vladfaust.com/tele-broadcast.cr" target="_blank">docs</a> when you need.</p>
+
+<p><code><a href="Tele/Broadcast.html">Tele::Broadcast</a></code> is <strong>agnostic</strong> of ORM structure, you just pass a list of <code>Tele::Request</code>s and an list of recipients chat IDs and run the Woker. You can either create a custom CLI for broadcasting from the local machine or develop a web-interface.</p>
+
+<h3>Client</h3>
+
+<p>The client allows to schedule broadcasts:</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;tele/requests/send_message&quot;</span>
+<span class="k">require</span> <span class="s">&quot;tele-broadcast/client&quot;</span>
+<span class="k">require</span> <span class="s">&quot;tele-broadcast/repositories/redis&quot;</span>
+
+logger <span class="o">=</span> <span class="t">Logger</span>.<span class="k">new</span>(<span class="t">STDOUT</span>).tap(<span class="o">&</span>.level <span class="o">=</span> <span class="t">Logger</span><span class="t">::</span><span class="t">DEBUG</span>)
+repo <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Broadcast</span><span class="t">::</span><span class="t">Repositories</span><span class="t">::</span><span class="t">Redis</span>.<span class="k">new</span>(<span class="t">Redis</span>.<span class="k">new</span>, logger, <span class="s">&quot;example_bot:broadcast:&quot;</span>) <span class="c"># Don&#39;t forget to add a colon in the end of namespace</span>
+
+client <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Broadcast</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(repo, logger)
+
+request <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Requests</span><span class="t">::</span><span class="t">SendMessage</span>.<span class="k">new</span>(chat_id: <span class="n">0</span>, text: <span class="s">&quot;Hello from Tele::Broadcast&#33;&quot;</span>)
+recipients <span class="o">=</span> [<span class="n">116543174</span>, <span class="n">155633478</span>] <span class="k">of</span> <span class="t">Int32</span> <span class="c"># A list of Telegram IDs</span>
+
+client.broadcast(requests, recipients)
+
+<span class="c"># &#61;&gt; INFO -- : Added payload #1 to the broadcasting queue</span></code></pre>
+
+<p>Check out <code>examples/client.cr</code> and try it yourself:</p>
+
+<pre><code class='language-shell'>crystal /examples/client.cr -- --text="Hola!" -r &lt;Your Telegram ID></code></pre>
+
+<p>Please not that you have to contact the bot at least once so it can send you messages.</p>
+
+<h3>Worker</h3>
+
+<p>The worker periodically checks for new broadcasts and handles them:</p>
+
+<pre><code class='language-crystal'><span class="k">require</span> <span class="s">&quot;tele-broadcast/worker&quot;</span>
+<span class="k">require</span> <span class="s">&quot;tele-broadcast/repositories/redis&quot;</span>
+
+logger <span class="o">=</span> <span class="t">Logger</span>.<span class="k">new</span>(<span class="t">STDOUT</span>).tap(<span class="o">&</span>.level <span class="o">=</span> <span class="t">Logger</span><span class="t">::</span><span class="t">DEBUG</span>)
+repo <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Broadcast</span><span class="t">::</span><span class="t">Repositories</span><span class="t">::</span><span class="t">Redis</span>.<span class="k">new</span>(<span class="t">Redis</span>.<span class="k">new</span>, logger, <span class="s">&quot;example_bot:broadcast:&quot;</span>) <span class="c"># Don&#39;t forget to add a colon in the end of namespace</span>
+
+worker <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Broadcast</span><span class="t">::</span><span class="t">Worker</span>.<span class="k">new</span>(<span class="s">&quot;BOT_API_TOKEN&quot;</span>, repo, logger)
+worker.run
+
+<span class="c"># &#61;&gt;  INFO -- : Tele::Broadcast::Worker worker is running&#33;</span>
+<span class="c"># &#61;&gt;  INFO -- : Started broadcasting payload #1 to 2 recipients...</span>
+<span class="c"># &#61;&gt; DEBUG -- : Recipient 116543174 has blocked the bot, skipping</span>
+<span class="c"># &#61;&gt; DEBUG -- : Sending request #727 to 155633478...</span>
+<span class="c"># &#61;&gt; DEBUG -- : Delivered request #727 in 0.29s</span>
+<span class="c"># &#61;&gt;  INFO -- : Done broadcasting payload #1 in 0.29s&#33;</span></code></pre>
+
+<p>Try it yourself:</p>
+
+<pre><code class='language-shell'>crystal /examples/worker.cr -- -t &lt;BOT_API_TOKEN></code></pre>
+
+<h2>Development</h2>
+
+<p>There are tests! So please run <code>crystal spec</code> while developing.</p>
+
+<h2>Contributing</h2>
+
+<ol><li>Fork it ( https://github.com/vladfaust/tele-broadcast.cr/fork )</li><li>Create your feature branch (git checkout -b my-new-feature)</li><li>Commit your changes (git commit -am 'Add some feature')</li><li>Push to the branch (git push origin my-new-feature)</li><li>Create a new Pull Request</li></ol>
+
+<h2>Contributors</h2>
+
+<ul><li><a href="https://github.com/vladfaust" target="_blank">@vladfaust</a> Vlad Faust - creator, maintainer</li></ul>
+</div>
+</body>
+</html>

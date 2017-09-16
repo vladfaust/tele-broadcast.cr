@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta id="repository-name" content="github.com/vladfaust/tele-broadcast.cr">
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/doc.js"></script>
+  <title>Tele::Broadcast::Client - github.com/vladfaust/tele-broadcast.cr</title>
+</head>
+<body>
+
+<div id="types-list">
+  <div id="search-box">
+    <input type="search" id="search-input" placeholder="Search...">
+  </div>
+
+  <ul>
+    <li><a href="../../index.html">README</a></li>
+  </ul>
+
+  <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele" data-name="tele">
+      <a href="../../Tele.html">Tele</a>
+      
+        <ul>
+  
+  <li class="parent open current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast" data-name="tele::broadcast">
+      <a href="../../Tele/Broadcast.html">Broadcast</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Client" data-name="tele::broadcast::client">
+      <a href="../../Tele/Broadcast/Client.html">Client</a>
+      
+    </li>
+  
+  <li class="parent " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories" data-name="tele::broadcast::repositories">
+      <a href="../../Tele/Broadcast/Repositories.html">Repositories</a>
+      
+        <ul>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repositories/Redis" data-name="tele::broadcast::repositories::redis">
+      <a href="../../Tele/Broadcast/Repositories/Redis.html">Redis</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Repository" data-name="tele::broadcast::repository">
+      <a href="../../Tele/Broadcast/Repository.html">Repository</a>
+      
+    </li>
+  
+  <li class=" " data-id="github.com/vladfaust/tele-broadcast.cr/Tele/Broadcast/Worker" data-name="tele::broadcast::worker">
+      <a href="../../Tele/Broadcast/Worker.html">Worker</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+</div>
+
+<div id="main-content">
+<h1 class="type-name">
+
+  <span class="kind">class</span> Tele::Broadcast::Client
+
+</h1>
+
+
+  <ul class="superclass-hierarchy"><li class="superclass"><a href="../../Tele/Broadcast/Client.html">Tele::Broadcast::Client</a></li><li class="superclass">Reference</li><li class="superclass">Object</li></ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>Defined in:</h2>
+  
+    
+      <a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/client.cr#L5" target="_blank">tele-broadcast/client.cr</a>
+    
+    <br/>
+  
+
+
+
+
+
+  <h2>Constructors</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#new%28repositoryrepo%3ARepository%2Clogger%3ALogger%29-class-method" class="signature"><strong>.new</strong>(repository repo : Repository, logger : Logger)</a>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+  <h2>Instance Method Summary</h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#broadcast%28requests%3AArray%28Tele%3A%3ARequest%29%2Crecipients%3AArray%28Int32%7CInt64%29%2Cwhenbroadcast_at%3ATime%3DTime.now%29-instance-method" class="signature"><strong>#broadcast</strong>(requests : Array(Tele::Request), recipients : Array(Int32 | Int64), when broadcast_at : Time = <span class="t">Time</span>.now)</a>
+        
+          <div class="summary"><p>Queues a broadcasting of <em>requests</em> to <em>recipients</em>, scheduling it at <em>when</em>.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#broadcast%28request%3ATele%3A%3ARequest%2Crecipients%2Cwhenbroadcast_at%3DTime.now%29-instance-method" class="signature"><strong>#broadcast</strong>(request : Tele::Request, recipients, when broadcast_at = <span class="t">Time</span>.now)</a>
+        
+          <div class="summary"><p>Queues a broadcasting of <em>request</em> to <em>recipients</em>, scheduling it at <em>when</em>.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+<div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+  
+</div>
+
+
+  <h2>Constructor Detail</h2>
+  
+    <div class="entry-detail" id="new&#40;repositoryrepo:Repository,logger:Logger&#41;-class-method">
+      <div class="signature">
+        
+        def self.<strong>new</strong>(repository repo : <a href="../../Tele/Broadcast/Repository.html">Repository</a>, logger : Logger)
+
+        <a class="method-permalink" href="#new%28repositoryrepo%3ARepository%2Clogger%3ALogger%29-class-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/client.cr#L6" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+  <h2>Instance Method Detail</h2>
+  
+    <div class="entry-detail" id="broadcast&#40;requests:Array&#40;Tele::Request&#41;,recipients:Array&#40;Int32|Int64&#41;,whenbroadcast_at:Time&#61;Time.now&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>broadcast</strong>(requests : Array(Tele::Request), recipients : Array(Int32 | Int64), when broadcast_at : Time = <span class="t">Time</span>.now)
+
+        <a class="method-permalink" href="#broadcast%28requests%3AArray%28Tele%3A%3ARequest%29%2Crecipients%3AArray%28Int32%7CInt64%29%2Cwhenbroadcast_at%3ATime%3DTime.now%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Queues a broadcasting of <em>requests</em> to <em>recipients</em>, scheduling it at <em>when</em>.</p>
+
+<p>Note that <em>chat_id</em> value in <em>requests</em> is ignored by the broadcaster.</p>
+
+<pre><code>requests <span class="o">=</span> [<span class="t">Tele</span><span class="t">::</span><span class="t">Requests</span><span class="t">::</span><span class="t">SendMessage</span>.<span class="k">new</span>(chat_id: <span class="n">0</span>, text: <span class="s">&quot;Hello&quot;</span>)]
+client.broadcast(requests, recipients: [<span class="n">42</span>, <span class="n">43</span>], <span class="k">when</span>: <span class="t">Time</span>.now <span class="o">+</span> <span class="n">3</span>.hours)</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/client.cr#L16" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="broadcast&#40;request:Tele::Request,recipients,whenbroadcast_at&#61;Time.now&#41;-instance-method">
+      <div class="signature">
+        
+        def <strong>broadcast</strong>(request : Tele::Request, recipients, when broadcast_at = <span class="t">Time</span>.now)
+
+        <a class="method-permalink" href="#broadcast%28request%3ATele%3A%3ARequest%2Crecipients%2Cwhenbroadcast_at%3DTime.now%29-instance-method">#</a>
+      </div>
+      
+        <div class="doc"><p>Queues a broadcasting of <em>request</em> to <em>recipients</em>, scheduling it at <em>when</em>.</p>
+
+<p>Note that <em>chat_id</em> value in <em>request</em> is ignored by the broadcaster.</p>
+
+<pre><code>request <span class="o">=</span> <span class="t">Tele</span><span class="t">::</span><span class="t">Requests</span><span class="t">::</span><span class="t">SendMessage</span>.<span class="k">new</span>(chat_id: <span class="n">0</span>, text: <span class="s">&quot;Hello&quot;</span>)
+client.broadcast(request, recipients: [<span class="n">42</span>, <span class="n">43</span>])</code></pre></div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/vladfaust/tele-broadcast.cr/blob/b0565c738eb28726bd3b4ca66618af530ce5b98b/src/tele-broadcast/client.cr#L32" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+</div>
+
+</body>
+</html>
