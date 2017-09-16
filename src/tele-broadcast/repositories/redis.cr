@@ -21,6 +21,7 @@ module Tele::Broadcast
     private KEY_REQUESTS           = "requests"
     private KEY_DELETED_COUNT      = "deleted_count"
     private KEY_BLOCKED_COUNT      = "blocked_count"
+    private REQUEST_FILE_FIELDS    = %w(photo audio document video voice video_note)
 
     def initialize(@redis, @logger, @namespace = DEFAULT_NAMESPACE); end
 
@@ -66,7 +67,7 @@ module Tele::Broadcast
           RequestHash.new.tap do |file_hash|
             array = redis.hgetall(prepend + KEY_REQUESTS + ":" + (request_id + 1).to_s)
             hash_from_redis_array(array).each do |k, v|
-              file_hash[k] = File.file?(v) ? File.open(v) : v
+              file_hash[k] = (REQUEST_FILE_FIELDS.includes?(k) && File.file?(v)) ? File.open(v) : v
             end
           end
         end.to_a
